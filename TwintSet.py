@@ -30,16 +30,12 @@ def profile_info(username: str) -> pd.DataFrame:
     """
     Proposito: Funcion para confirmar si un usuario de es venezolano
     """
-    #Filtros de busqueda del usuario
     c = twint.Config()
     c.Username = username
-    
-    #Guardado de resultados
     c.Hide_output = True
     c.Store_pandas = True
     c.Pandas = True
     twint.run.Lookup(c)
-    
     df = twint.storage.panda.Tweets_df
     return df
 # end def

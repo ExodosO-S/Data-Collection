@@ -6,9 +6,10 @@ import csv
 class GetInstagramProfile():
     def __init__(self) -> None:
         self.L = instaloader.Instaloader()
-
-    def download_users_profile_picture(self,username):
-        self.L.download_profile(username, profile_pic_only=True)
+        
+    #Funcion para descargar los datos del perfil de un usuario
+    def download_users_profile(self,username):
+        self.L.download_profile(username)
 
     def download_users_posts_with_periods(self,username):
         posts = instaloader.Profile.from_username(self.L.context, username).get_posts()
@@ -22,11 +23,10 @@ class GetInstagramProfile():
         for post in instaloader.Hashtag.from_name(self.L.context, hashtag).get_posts():
             self.L.download_post(post, target='#'+hashtag)
 
-    def get_users_followers(self,user_name):
-        '''Note: login required to get a profile's followers.'''
+    def get_users_info(self,user_name):
         self.L.login(input("input your username: "), input("input your password: ") ) 
         profile = instaloader.Profile.from_username(self.L.context, user_name)
-        file = open("follower_names.txt","a+")
+        file = open("profile.txt","a+")
         for followee in profile.get_followers():
             username = followee.username
             file.write(username + "\n")
